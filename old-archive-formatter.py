@@ -19,7 +19,10 @@ def parseXML(xmlfilename):
 	# iterate news items
 	for item in root.findall('./channel/item'):
 		title = item.find('title').text
+		if "attachment" in title:
+			continue
 		print(title)
+		print("\n")
 		content = item.find('contentencoded').text
 		url=find_between( content, '<iframe width="100%" height="60" src="', '" frameborder="0" ></iframe>' )
 		urlGood=re.sub(r'%2F', '/', url)
@@ -28,7 +31,34 @@ def parseXML(xmlfilename):
 
 		print(urlVeryVeryGood)
 		print("\n")
-		print(content)
+		result = re.search('<p class="" style="white-spacepre-wrap;">(.*)</p></li></ul>', content)
+		if result:
+			#print(result.group(1))
+			tracklist=result.group(1).replace('</p></li><li><p class="" style="white-spacepre-wrap;">','\n').replace('</p></li></ul><ul data-rte-list="default"><li><p class="" style="white-spacepre-wrap;">','\n')
+			#print(content)
+			print(tracklist)
+		else:
+			print "no tracklist found" 
+			result = re.search('style="white-space pre-wrap;">(.*)</p></li></ul>', content)
+			if not result:
+				print "no tracklist found - B"
+				result = re.search('<p style="white-spacepre-wrap;">(.*)</p></li></ul>', content)
+				if not result:
+					print "no tracklist found - C"
+					result = re.search('<em>(.*)</em>', content)
+					if not result:
+						print "no tracklist found - D"
+					else:
+						print(result.group(1))
+				else:
+					tracklist=result.group(1).replace('</p></li><li><p style="white-spacepre-wrap;">','\n')
+					tracklist=tracklist.replace('</p></li></ul><ul data-rte-list="default"><li><p style="white-spacepre-wrap;">', '\n')
+					print(tracklist)
+			else:
+				tracklist=result.group(1).replace('</p></li><li><p style="white-space pre-wrap;">','\n').replace('</p></li></ul><ul data-rte-list="default"><li><p style="white-space pre-wrap;">','\n')
+				tracklist=tracklist.replace('</p><ul data-rte-list="default"><li><p style="white-space pre-wrap;">', '\n').replace('</p></li></ul><p style="white-space pre-wrap;">', '\n').replace('<br><br>', '\n').strip()
+				#print(content)
+				print(tracklist)
 
 		#show = ET.fromstring(content.decode('utf-8'))
 
@@ -79,7 +109,7 @@ def find_between_r( s, first, last ):
 def main():
 
 	# parse xml file
-	newsitems = parseXML('battuta_small.xml')
+	newsitems = parseXML('6474_clean.xml')
 
 	# store news items in a csv file
 	savetoCSV(newsitems, 'battuta.csv')
