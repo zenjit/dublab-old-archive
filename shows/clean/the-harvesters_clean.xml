@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:wp="http://wordpress.org/export/1.2/">
+  <channel>
+    <item>
+      <title>The Harvesters 23.01.18</title>
+      <link>/the-harvesters/programa-2</link>
+      <contentencoded><![CDATA[<iframe width="100%" height="60" src="https//www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&light=1&feed=%2Fdublabes%2Fthe-harvesters-230118-w-claudia-pag%C3%A8s-helena-aka-amexx%2F" frameborder="0" ></iframe>]]></contentencoded>
+      <excerptencoded />
+      <wppost_name>programa-2</wppost_name>
+      <wppost_type>post</wppost_type>
+      <wppost_id>454</wppost_id>
+      <wpstatus>publish</wpstatus>
+      <pubDate>Wed, 21 Mar 2018 155139 +0000</pubDate>
+      <wppost_date>2018-03-21 155139</wppost_date>
+      <wppost_date_gmt>2018-03-21 155139</wppost_date_gmt>
+      <dccreator>dublab.es@gmail.com</dccreator>
+      <wpcomment_status>closed</wpcomment_status>
+      <wppostmeta>
+        <wpmeta_key>_thumbnail_id</wpmeta_key>
+        <wpmeta_value><![CDATA[455]]></wpmeta_value>
+      </wppostmeta>
+    </item>
+    <item>
+      <wpattachment_url>http//static1.squarespace.com/static/57f395a5e6f2e1064a4cf1e9/5a37b56ce4966b79a0dca27f/5a67680253450a2008b88445/1538996777210/The+Harvesters.jpg</wpattachment_url>
+      <link>http//static1.squarespace.com/static/57f395a5e6f2e1064a4cf1e9/5a37b56ce4966b79a0dca27f/5a67680253450a2008b88445/1538996777210/The+Harvesters.jpg</link>
+      <title>attachment-5a67680253450a2008b88445</title>
+      <wppost_name>The-Harvesters-jpg</wppost_name>
+      <wppost_type>attachment</wppost_type>
+      <wppost_id>455</wppost_id>
+      <wpstatus>inherit</wpstatus>
+      <contentencoded><![CDATA[img-5a67680253450a2008b88445]]></contentencoded>
+      <excerptencoded><![CDATA[exc-5a67680253450a2008b88445]]></excerptencoded>
+      <pubDate>Wed, 21 Mar 2018 155139 +0000</pubDate>
+      <wppost_date>2018-03-21 155139</wppost_date>
+      <wppost_date_gmt>2018-03-21 155139</wppost_date_gmt>
+      <dccreator>dublab.es@gmail.com</dccreator>
+    </item>
+    <item>
+      <title>The Harvesters 01.11.17</title>
+      <link>/the-harvesters/programa-1</link>
+      <contentencoded><![CDATA[<iframe width="100%" height="60" src="https//www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&light=1&feed=%2Fdublabes%2Fthe-harvesters-011117-w-claudia-pag%C3%A8s%2F" frameborder="0" ></iframe><p>Nanas con Noela Covelo.&nbsp;</p><p>Princess Nokia - Biohazard Butterfly<br />Thorat and Column excerpt.&nbsp;<br />Federico García Lorca y La Argentinita - Nana de Sevilla<br />Camarón de la Isla - Nana del Caballo Grande.&nbsp;<br />Federico García Lorca - Las nanas infantiles. Excerpt de la conferencia.&nbsp;<br />Áudios Leonor Merola.&nbsp;<br />Gianmaria Andreetta. Lullaby.&nbsp;<br />ASMR session.&nbsp;</p><p>Madres computadas.&nbsp;<br />La noche griega.&nbsp;<br />Robert Ashley - Prelude to Nightmare.&nbsp;<br />Robert Ashley - Nightmare.&nbsp;<br />Áudios Leonor Merola.&nbsp;<br />A las mujeres Ⓐ.&nbsp;</p>]]></contentencoded>
+      <excerptencoded />
+      <wppost_name>programa-1</wppost_name>
+      <wppost_type>post</wppost_type>
+      <wppost_id>456</wppost_id>
+      <wpstatus>publish</wpstatus>
+      <pubDate>Fri, 29 Dec 2017 173326 +0000</pubDate>
+      <wppost_date>2017-12-29 173326</wppost_date>
+      <wppost_date_gmt>2017-12-29 173326</wppost_date_gmt>
+      <dccreator>dublab.es@gmail.com</dccreator>
+      <wpcomment_status>closed</wpcomment_status>
+      <wppostmeta>
+        <wpmeta_key>_thumbnail_id</wpmeta_key>
+        <wpmeta_value><![CDATA[457]]></wpmeta_value>
+      </wppostmeta>
+    </item>
+  </channel>
+</rss>
+

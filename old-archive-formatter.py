@@ -3,6 +3,7 @@
 # -*- coding: utf-8 -*-
 import csv
 import re
+import os
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import XMLParser
 
@@ -11,7 +12,12 @@ def parseXML(xmlfilename):
 	with open(xmlfilename, 'r') as xmlfile:
 		data=xmlfile.read().replace('\n', '')
 
-	root = ET.fromstring(data)
+	try:
+		root = ET.fromstring(data)
+	except Exception as e:
+		print(e)
+		print("Error parsing " + xmlfilename)
+		return
 
 	# create empty list for news items
 	showsitems = []
@@ -25,9 +31,15 @@ def parseXML(xmlfilename):
 		print("\n")
 		content = item.find('contentencoded').text
 		url=find_between( content, '<iframe width="100%" height="60" src="', '" frameborder="0" ></iframe>' )
+		if not url:
+			url=find_between( content, '<iframe width="100%" height="60" src="', '" frameborder="0"></iframe>' )
 		urlGood=re.sub(r'%2F', '/', url)
-		urlVeryGood=urlGood.replace('widget/iframe/?hide_cover=1&mini=1&light=1&feed=/', '')
-		urlVeryVeryGood=urlVeryGood.replace('https//', '')
+
+		if "?feed" in urlGood:
+			urlVeryGood=find_between( urlGood, '?feed=', '&hide_cover' )
+		else:
+			urlVeryGood=urlGood.replace('widget/iframe/?hide_cover=1&mini=1&light=1&feed=/', '')
+		urlVeryVeryGood=urlVeryGood.replace('https//', '').replace('https%3A//', '')
 
 		print(urlVeryVeryGood)
 		print("\n")
@@ -38,16 +50,15 @@ def parseXML(xmlfilename):
 			#print(content)
 			print(tracklist)
 		else:
-			print "no tracklist found" 
 			result = re.search('style="white-space pre-wrap;">(.*)</p></li></ul>', content)
 			if not result:
-				print "no tracklist found - B"
+				print "B"
 				result = re.search('<p style="white-spacepre-wrap;">(.*)</p></li></ul>', content)
 				if not result:
-					print "no tracklist found - C"
+					print "C"
 					result = re.search('<em>(.*)</em>', content)
 					if not result:
-						print "no tracklist found - D"
+						print "no tracklist found"
 					else:
 						print(result.group(1))
 				else:
@@ -59,7 +70,8 @@ def parseXML(xmlfilename):
 				tracklist=tracklist.replace('</p><ul data-rte-list="default"><li><p style="white-space pre-wrap;">', '\n').replace('</p></li></ul><p style="white-space pre-wrap;">', '\n').replace('<br><br>', '\n').strip()
 				#print(content)
 				print(tracklist)
-
+				
+		print("\n")
 		#show = ET.fromstring(content.decode('utf-8'))
 
 		# empty news dictionary
@@ -75,7 +87,7 @@ def parseXML(xmlfilename):
 def savetoCSV(newsitems, filename):
 
 	# specifying the fields for csv file
-	fields = ['guid', 'title', 'pubDate', 'description', 'link', 'media']
+	fields = ['id', 'author', 'title', 'description', 'link', 'tracklist']
 
 	# writing to csv file
 	with open(filename, 'w') as csvfile:
@@ -108,12 +120,16 @@ def find_between_r( s, first, last ):
 	
 def main():
 
-	# parse xml file
-	newsitems = parseXML('6474_clean.xml')
+	for file in os.listdir("./shows/clean"):
+		if file.endswith(".xml"):
+			#print(file)
+			# parse xml file
+			newsitems = parseXML(os.path.join("./shows/clean", file))
+			
+	#newsitems = parseXML("./shows/clean/raspa_clean.xml")
 
 	# store news items in a csv file
-	savetoCSV(newsitems, 'battuta.csv')
-	
+	#savetoCSV(newsitems, 'dublab-old-archive.csv')
 	
 if __name__ == "__main__":
 

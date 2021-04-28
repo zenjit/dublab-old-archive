@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:wp="http://wordpress.org/export/1.2/">
+  <channel>
+    <item>
+      <title>The Vinyl Bough Ep.2</title>
+      <link>/thevinylbough/programa-2</link>
+      <contentencoded><![CDATA[<iframe width="100%" height="60" src="https//www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&light=1&feed=%2Fdublabes%2Fthe-vinyl-bough-ep2-w-joe-fletcher%2F" frameborder="0" ></iframe><p style="white-space pre-wrap;">A global circumnavigation in sound and stories, episode two of The Vinyl Bough is another dip into my record collection to expose the listener to music that can transport them from cold northern environments to sweaty, colourful Southern climes. This months route takes in Nigeria, Hawaii and Somerset, telling tales of Cigar smoking gods and Ethiopian Vampires to the sounds of Romanian Gypsy bands, African Witch doctors and yodelling surfers.</p>]]></contentencoded>
+      <excerptencoded />
+      <wppost_name>programa-2</wppost_name>
+      <wppost_type>post</wppost_type>
+      <wppost_id>494</wppost_id>
+      <wpstatus>publish</wpstatus>
+      <pubDate>Fri, 22 Jun 2018 102550 +0000</pubDate>
+      <wppost_date>2018-06-22 102550</wppost_date>
+      <wppost_date_gmt>2018-06-22 102550</wppost_date_gmt>
+      <dccreator>dublab.es@gmail.com</dccreator>
+      <wpcomment_status>closed</wpcomment_status>
+      <wppostmeta>
+        <wpmeta_key>_thumbnail_id</wpmeta_key>
+        <wpmeta_value><![CDATA[495]]></wpmeta_value>
+      </wppostmeta>
+    </item>
+    <item>
+      <wpattachment_url>http//static1.squarespace.com/static/57f395a5e6f2e1064a4cf1e9/5ad7049703ce645b24545393/5b2cc2bf88251ba6c14ccca0/1538996845608/the+viyl+bough.jpg</wpattachment_url>
+      <link>http//static1.squarespace.com/static/57f395a5e6f2e1064a4cf1e9/5ad7049703ce645b24545393/5b2cc2bf88251ba6c14ccca0/1538996845608/the+viyl+bough.jpg</link>
+      <title>attachment-5b2cc2bf88251ba6c14ccca0</title>
+      <wppost_name>the-viyl-bough-jpg</wppost_name>
+      <wppost_type>attachment</wppost_type>
+      <wppost_id>495</wppost_id>
+      <wpstatus>inherit</wpstatus>
+      <contentencoded><![CDATA[img-5b2cc2bf88251ba6c14ccca0]]></contentencoded>
+      <excerptencoded><![CDATA[exc-5b2cc2bf88251ba6c14ccca0]]></excerptencoded>
+      <pubDate>Fri, 22 Jun 2018 102550 +0000</pubDate>
+      <wppost_date>2018-06-22 102550</wppost_date>
+      <wppost_date_gmt>2018-06-22 102550</wppost_date_gmt>
+      <dccreator>dublab.es@gmail.com</dccreator>
+    </item>
+    <item>
+      <title>The Vinyl Bough Ep.1</title>
+      <link>/thevinylbough/programa-1</link>
+      <contentencoded><![CDATA[<iframe width="100%" height="60" src="https//www.mixcloud.com/widget/iframe/?hide_cover=1&mini=1&light=1&feed=%2Fdublabes%2Fthe-vinyl-bough-ep1-w-joe-fletcher%2F" frameborder="0" ></iframe><p style="white-space pre-wrap;">A global circumnavigation in sound and stories, this new monthly show is a dip into DJ Joe Fletcher's record collection in an attempt to expose the listener to music that can transport them from drab European environments to sweaty, colourful equatorial climes. This months route takes in America, Brazil, Tierra Del Fuego, Angola, Russia and contains rarely heard music by groups including the American Airforce Band, Death Row Prisoners and Caribbean Hotel lobby bands.</p>]]></contentencoded>
+      <excerptencoded />
+      <wppost_name>programa-1</wppost_name>
+      <wppost_type>post</wppost_type>
+      <wppost_id>496</wppost_id>
+      <wpstatus>publish</wpstatus>
+      <pubDate>Mon, 23 Apr 2018 085004 +0000</pubDate>
+      <wppost_date>2018-04-23 085004</wppost_date>
+      <wppost_date_gmt>2018-04-23 085004</wppost_date_gmt>
+      <dccreator>dublab.es@gmail.com</dccreator>
+      <wpcomment_status>closed</wpcomment_status>
+      <wppostmeta>
+        <wpmeta_key>_thumbnail_id</wpmeta_key>
+        <wpmeta_value><![CDATA[497]]></wpmeta_value>
+      </wppostmeta>
+    </item>
+  </channel>
+</rss>
+
