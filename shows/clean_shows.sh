@@ -4,7 +4,7 @@ input=$1
 
 show=$(echo "${input%.*}")
 
-output=$(echo "clean/${show}_clean.xml")
+output=$(echo "./clean/${show}_clean.xml")
 
 show_name=$(echo $show | sed -e "s/-/ /g") # get show name from filename
 
@@ -65,6 +65,8 @@ end=$( expr $n_stop + $n_last_item ) # and get line number
 # calculate length and range of lines to extract from file which include all shows
 range=$( expr $end - $start ) 
 end=$( expr $end - 1 )
+
+#exit
 
 # create a simplified version of the file containing only shows
 echo '<?xml version="1.0" encoding="UTF-8"?>
