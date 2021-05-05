@@ -7,8 +7,11 @@ import os
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import XMLParser
 import json
+from collections import OrderedDict
 
 def parseXML(xmlfilename, showsitems):
+
+	print(xmlfilename)
 
 	with open(xmlfilename, 'r') as xmlfile:
 		data=xmlfile.read().replace('\n', '')
@@ -23,13 +26,17 @@ def parseXML(xmlfilename, showsitems):
 	# iterate shows items
 	for item in root.findall('./channel/item'):
 		completeTitle=item.find('title').text
-		title,date=getTitleAndDateFromCompleteTitle(completeTitle)
 		if "attachment" in completeTitle:
 			continue
+
+		title,date=getTitleAndDateFromCompleteTitle(completeTitle)
 
 		content=item.find('contentencoded').text
 		url=getUrlFromContent(content)
 		tracklist=getTracklistFromContent(content)
+
+		if not date:
+			date=getDateFromUrl(url)
 
 		# empty news dictionary
 		show={'title': completeTitle.encode("UTF-8"), 'show': title.encode("UTF-8"), 'date': date.encode("UTF-8"), 'link':url.encode("UTF-8"), 'tracklist':tracklist.encode("UTF-8")}
@@ -37,14 +44,17 @@ def parseXML(xmlfilename, showsitems):
 		# append news dictionary to news items list
 		showsitems.append(show)
 
-		print(title.encode("UTF-8") + "\n" + date.encode("UTF-8") + "\n" + url.encode("UTF-8") + "\n\n" + tracklist.encode("UTF-8") + "\n")
+		print(completeTitle.encode("UTF-8") + "\n" + title.encode("UTF-8") + "\n" + date.encode("UTF-8") + "\n" + url.encode("UTF-8") + "\n\n" + tracklist.encode("UTF-8") + "\n")
 	
 	# return news items list
 	return showsitems
 
 def getTitleAndDateFromCompleteTitle(completeTitle):
-	
-	date=re.search(r'(\d{1,2}\W\d{1,2}\W\d{1,2})', completeTitle)
+	if "Est.88" in completeTitle:
+		title="Est.88"
+		date=title.replace("Est.88","").strip()
+		return title, date
+	date=re.search(r'\b(\d{1,2}\W\d{1,2}\W\d{1,2})\b', completeTitle)
 	if date:
 		date=date.group(0)
 		title=completeTitle.replace(date,"").strip()
@@ -52,7 +62,16 @@ def getTitleAndDateFromCompleteTitle(completeTitle):
 	else:
 		title=completeTitle
 		date=""
-	return title, date
+	return cleanText(title), date
+
+def getDateFromUrl(url):
+	date=re.search('(\d{6})', url)
+	if date:
+		date=date.group(1)
+		date='/'.join(a+b for a,b in zip(date[::2], date[1::2]))
+		return date
+	else:
+		return ""
 
 def getUrlFromContent(content):
 
@@ -94,12 +113,12 @@ def getTracklistFromContent(content):
 			tracklist=result.group(1).replace('</p></li><li><p style="white-space pre-wrap;">','\n').replace('</p></li></ul><ul data-rte-list="default"><li><p style="white-space pre-wrap;">','\n')
 			tracklist=tracklist.replace('</p><ul data-rte-list="default"><li><p style="white-space pre-wrap;">', '\n').replace('</p></li></ul><p style="white-space pre-wrap;">', '\n').replace('<br><br>', '\n').strip()
 
-	tracklist=cleanTracklist(tracklist)
+	tracklist=cleanText(tracklist)
 
 	return(tracklist)
 
 
-def cleanTracklist(tracklist):
+def cleanText(tracklist):
 	tracklist=tracklist.replace("&amp;","&").replace("<br>","").replace("&nbsp;","")
 	tracklist=re.sub("[\<\[].*?[\>\]]", "", tracklist)
 	return tracklist
@@ -139,7 +158,7 @@ def main():
 	# create empty list for shows items
 	showsitems=[]
 
-	#showsitems=parseXML("prova.xml", showsitems)
+	#showsitems=parseXML("./shows/clean/6474_clean.xml", showsitems)
 	#return
 
 	for file in os.listdir("./shows/clean"):
@@ -150,6 +169,11 @@ def main():
 	with open('dublab-old-archive.json', 'w') as f:
 		json.dump(showsitems, f, ensure_ascii=False, indent=4)
 	#savetoCSV(showsitems, 'dublab-old-archive.csv')
+	counter = OrderedDict()
+	for item in showsitems:
+		if 'show' in item:
+			counter[item['show']] = counter.get(item['show'], 0) + 1
+	print(json.dumps( counter, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False))
 	
 if __name__ == "__main__":
 
