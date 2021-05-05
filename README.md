@@ -1,13 +1,14 @@
 # dublab-old-archive
 
-# in shows folder there's an xml file for each show
-# in order to prepare shows for extracting information, run:
+shows folder's contains xml files from Squarespace.
 
-cd shows/
-for f in *.xml; do ./clean_shows.sh $f; done
+to prepare shows (clean xml files):
 
-# this will produce a clean (*_clean.xml) version of each show under shows/clean
+> cd shows/
+> for f in *.xml; do ./clean_shows.sh $f; done
 
-# run python program to get info from cleaned shows:
+this will produce a clean (*_clean.xml) version of each show under shows/clean but some (5-10) had to be fixed manually...
 
-python old-archive-formatter.py
+finally, run python program to get shows list:
+
+> python old-archive-formatter.py
