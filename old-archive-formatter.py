@@ -8,20 +8,26 @@ import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import XMLParser
 import json
 from collections import OrderedDict
+import ntpath
 
-def parseXML(xmlfilename, showsitems):
-
-	print(xmlfilename)
+def parseXML(xmlfilename, showsitems, normalizeTitle):
 
 	with open(xmlfilename, 'r') as xmlfile:
 		data=xmlfile.read().replace('\n', '')
 
 	try:
 		root=ET.fromstring(data)
+		firstTitle=root.findall('./channel/item')[0]
+		firstTitle=firstTitle.find('title').text
 	except Exception as e:
 		print(e)
 		print("Error parsing " + xmlfilename)
 		return
+
+	if normalizeTitle:
+		showName=nameNormalizer(xmlfilename, firstTitle)
+	else:
+		showName=pathLeaf(os.path.splitext(pathLeaf(xmlfilename))[0])
 
 	# iterate shows items
 	for item in root.findall('./channel/item'):
@@ -29,7 +35,7 @@ def parseXML(xmlfilename, showsitems):
 		if "attachment" in completeTitle:
 			continue
 
-		title,date=getTitleAndDateFromCompleteTitle(completeTitle)
+		title,date=getTitleAndDateFromCompleteTitle(completeTitle, normalizeTitle)
 
 		content=item.find('contentencoded').text
 		url=getUrlFromContent(content)
@@ -38,18 +44,15 @@ def parseXML(xmlfilename, showsitems):
 		if not date:
 			date=getDateFromUrl(url)
 
-		# empty news dictionary
-		show={'title': completeTitle.encode("UTF-8"), 'show': title.encode("UTF-8"), 'date': date.encode("UTF-8"), 'link':url.encode("UTF-8"), 'tracklist':tracklist.encode("UTF-8")}
-		#print(tracklist)
-		# append news dictionary to news items list
+		show={'show': showName.encode("UTF-8"), 'title': completeTitle.encode("UTF-8"), 'title': title.encode("UTF-8"), 'date': date.encode("UTF-8"), 'link':url.encode("UTF-8"), 'tracklist':tracklist.encode("UTF-8")}
+		# append shows dictionary to shows items list
 		showsitems.append(show)
-
-		print(completeTitle.encode("UTF-8") + "\n" + title.encode("UTF-8") + "\n" + date.encode("UTF-8") + "\n" + url.encode("UTF-8") + "\n\n" + tracklist.encode("UTF-8") + "\n")
+		#print(completeTitle.encode("UTF-8") + "\n" + title.encode("UTF-8") + "\n" + date.encode("UTF-8") + "\n" + url.encode("UTF-8") + "\n\n" + tracklist.encode("UTF-8") + "\n")
 	
-	# return news items list
+	# return shows items list
 	return showsitems
 
-def getTitleAndDateFromCompleteTitle(completeTitle):
+def getTitleAndDateFromCompleteTitle(completeTitle, normalizeTitle):
 	if "Est.88" in completeTitle:
 		title="Est.88"
 		date=title.replace("Est.88","").strip()
@@ -63,6 +66,17 @@ def getTitleAndDateFromCompleteTitle(completeTitle):
 		title=completeTitle
 		date=""
 	return cleanText(title), date
+
+def nameNormalizer(xmlfilename, firstTitle):
+	showLen=len(re.split("\s+|-", os.path.splitext(pathLeaf(xmlfilename))[0]))
+	show=firstTitle.split()[:showLen]
+	show=" ".join(show)
+	return show
+
+
+def pathLeaf(xmlfilename):
+    head, tail = ntpath.split(xmlfilename)
+    return tail or ntpath.basename(head).replace("_clean","")
 
 def getDateFromUrl(url):
 	date=re.search('(\d{6})', url)
@@ -123,19 +137,6 @@ def cleanText(tracklist):
 	tracklist=re.sub("[\<\[].*?[\>\]]", "", tracklist)
 	return tracklist
 
-
-def savetoCSV(newsitems, filename):
-	# specifying the fields for csv file
-	fields=['title', 'completeTitle', 'date' , 'link', 'tracklist']
-	# writing to csv file
-	with open(filename, 'w') as csvfile:
-		# creating a csv dict writer object
-		writer=csv.DictWriter(csvfile, fieldnames=fields)
-		# writing headers (field names)
-		writer.writeheader()
-		# writing data rows
-		writer.writerows(newsitems)
-
 def find_between( s, first, last ):
     try:
         start=s.index( first ) + len( first )
@@ -157,18 +158,24 @@ def main():
 
 	# create empty list for shows items
 	showsitems=[]
+	bsidesitems=[]
+	sponsorsitems=[]
 
-	#showsitems=parseXML("./shows/clean/6474_clean.xml", showsitems)
-	#return
+	bsidesitems=parseXML("./shows/bsides.xml", bsidesitems, False)
+	with open('bsides.json', 'w') as f:
+		json.dump(bsidesitems, f, ensure_ascii=False, indent=4)
+
+	sponsorsitems=parseXML("./shows/sponsors.xml", sponsorsitems, False)
+	#print(json.dumps( sponsorsitems, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False))
+	with open('sponsors.json', 'w') as f:
+		json.dump(sponsorsitems, f, ensure_ascii=False, indent=4)
 
 	for file in os.listdir("./shows/clean"):
 		if file.endswith(".xml"):
-			showsitems=parseXML(os.path.join("./shows/clean", file), showsitems)
+			showsitems=parseXML(os.path.join("./shows/clean", file), showsitems, True)
 
-	print(json.dumps( showsitems, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False))
 	with open('dublab-old-archive.json', 'w') as f:
 		json.dump(showsitems, f, ensure_ascii=False, indent=4)
-	#savetoCSV(showsitems, 'dublab-old-archive.csv')
 	counter = OrderedDict()
 	for item in showsitems:
 		if 'show' in item:
@@ -177,5 +184,4 @@ def main():
 	
 if __name__ == "__main__":
 
-	# calling main function
 	main()
