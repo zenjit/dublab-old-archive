@@ -162,19 +162,19 @@ def main():
 	sponsorsitems=[]
 
 	bsidesitems=parseXML("./shows/bsides.xml", bsidesitems, False)
-	with open('bsides.json', 'w') as f:
+	with open('./json/bsides.json', 'w') as f:
 		json.dump(bsidesitems, f, ensure_ascii=False, indent=4)
 
 	sponsorsitems=parseXML("./shows/sponsors.xml", sponsorsitems, False)
 	#print(json.dumps( sponsorsitems, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False))
-	with open('sponsors.json', 'w') as f:
+	with open('./json/sponsors.json', 'w') as f:
 		json.dump(sponsorsitems, f, ensure_ascii=False, indent=4)
 
 	for file in os.listdir("./shows/clean"):
 		if file.endswith(".xml"):
 			showsitems=parseXML(os.path.join("./shows/clean", file), showsitems, True)
 
-	with open('dublab-old-archive.json', 'w') as f:
+	with open('./json/dublab-old-archive.json', 'w') as f:
 		json.dump(showsitems, f, ensure_ascii=False, indent=4)
 	counter = OrderedDict()
 	for item in showsitems:
